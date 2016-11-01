@@ -19,12 +19,28 @@ class IndexView(TemplateView):
             # for x in all_a_tags:
             #     print(x.get('href'))
             player_link = []
-            for x in all_a_tags:
-                player_link.append(x.get('href'))
-            # print(player_link)
+            player_link=[(x.get('href'), x.get_text()) for x in all_a_tags]
+                # player_link.append(x.get('href'))
+                # player_link.append(x.get_text())
+
+            print(player_link)
             context['player_name'] = player_link
             # for counter, tag in enumerate(all_a_tags):
             #     print(counter, tag)
             # print(data.text)
             # print(counter, player_link)
+        return context
+
+class PlayerView(TemplateView):
+    template_name = 'player.html'
+
+    def get_context_data(self, player_url):
+        context = super().get_context_data()
+        page = requests.get('http://www.nfl.com/' + player_url)
+        souper = BeautifulSoup(page.text, 'html.parser')
+        context['table'] = souper.find_all('table', {'class': 'data-table1'})[1].contents
+        # for x in context['table']:
+        #     x.replace('\n', '')
+        print(context['table'])
+
         return context

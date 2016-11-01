@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Player Stats</h1>
+
+{% autoescape off %}
+  <table>
+    {{ table }}
+  </table>
+{% endautoescape %}
+
+{% endblock %}

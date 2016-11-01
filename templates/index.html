@@ -7,9 +7,9 @@
       <input type="submit" value="Search">
   </form>
 
-  {% for player in player_name %}
+  {% for link, player in player_name %}
     <div class="">
-      <a href="{{ player }}">{{ player }}</a>
+      <a href="{{ link }}">{{ player }}</a>
     </div>
   {% endfor %}
 
