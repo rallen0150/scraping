@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  NFL Search
+  <form class="" action="" method="get">
+      <input type="text" name="player_name">
+      <input type="submit" value="Search">
+  </form>
+
+  {% for player in player_name %}
+    <div class="">
+      <a href="{{ player }}">{{ player }}</a>
+    </div>
+  {% endfor %}
+
+{% endblock %}
