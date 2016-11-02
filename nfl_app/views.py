@@ -25,7 +25,7 @@ class IndexView(TemplateView):
             elif self.request.GET.get('playerType') == 'historical':
                 table = souper.find('table', {'class': 'data-table1'})
                 all_a_tags = table.find_all('a')
-                player_link = [(x.get('href'), x.get_text()) for x in all_a_tags]
+                player_link = [(x.get('href')+'?historical=True', x.get_text()) for x in all_a_tags]
                 context['player_name'] = player_link
                 return context
 
@@ -39,7 +39,7 @@ class PlayerView(TemplateView):
         # context['table'] = souper.find_all('table', {'class': 'data-table1'})[1].contents
         # print(context['table'])
         # return context
-        if self.request.GET.get('playerType') == 'historical':
+        if self.request.GET.get('historical') == "True":
             context['table'] = souper.findAll('table', {'class': 'data-table1'})[0].contents
             return context
         else:
