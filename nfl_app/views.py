@@ -17,7 +17,7 @@ class IndexView(TemplateView):
             if self.request.GET.get('playerType') == 'current':
                 table = souper.find('table', {'class': 'data-table1'})
                 all_a_tags = table.findAll('a')[::2]
-                player_link = []
+                # player_link = []
                 player_link=[(x.get('href'), x.get_text()) for x in all_a_tags]
                 # print(player_link)
                 context['player_name'] = player_link
@@ -25,8 +25,8 @@ class IndexView(TemplateView):
             elif self.request.GET.get('playerType') == 'historical':
                 table = souper.find('table', {'class': 'data-table1'})
                 all_a_tags = table.find_all('a')
-                player_link = [(x.get('href'), x.get_text()) for x in all_a_tags]
-                context['url_links'] = player_link
+                player_link = [(x.get('href')+'?historical=True', x.get_text()) for x in all_a_tags]
+                context['player_name'] = player_link
                 return context
 
 class PlayerView(TemplateView):
@@ -36,9 +36,12 @@ class PlayerView(TemplateView):
         context = super().get_context_data()
         page = requests.get('http://www.nfl.com/' + player_url)
         souper = BeautifulSoup(page.text, 'html.parser')
-        if self.request.GET.get('playerType') == 'current':
-            context['table'] = souper.find_all('table', {'class': 'data-table1'})[1].contents
-            print(context['table'])
+        # context['table'] = souper.find_all('table', {'class': 'data-table1'})[1].contents
+        # print(context['table'])
+        # return context
+        if self.request.GET.get('historical') == "True":
+            context['table'] = souper.findAll('table', {'class': 'data-table1'})[0].contents
+            return context
         else:
-            context['table'] = souper.findAll('table', {'class': 'data-table1'})
+            context['table'] = souper.findAll('table', {'class': 'data-table1'})[1].contents
             return context
