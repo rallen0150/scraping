@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  NFL Search
-  <form class="" action="" method="get">
-      <input type="text" name="player_name">
-      <input type="submit" value="Search">
-  </form>
+  <h1 class='title'>NFL Player Search</h1>
 
-  {% for link, player in player_name %}
-    <div class="">
-      <a href="{{ link }}">{{ player }}</a>
+
+
+
+  <div style="height:100px"></div>
+  <div class='row centered'>
+    <div class="col col-4">
+      <form class="" action="" method="get">
+          <div class="form-item">
+            <input type="text" name="player_name" placeholder="Player Name">
+            <input type="submit" class='button primary round' value="Search">
+        </div>
+      </form>
     </div>
+  </div>
+  {% for link, player in player_name %}
+  <div class="row right">
+    <div class="col col-4 pull-right">
+      <div class="">
+        <a class='player' href="{{ link }}">{{ player }}</a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
+
+  <img src="static/helmetcatch.gif" alt="Helmet Catch" />
 
 {% endblock %}

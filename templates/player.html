@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <a class='player' href="{% url 'index_view' %}">Back</a>
   <h1>Player Stats</h1>
 
 {% autoescape off %}
-  <table>
+  <table class="striped">
     {{ table }}
   </table>
 {% endautoescape %}
